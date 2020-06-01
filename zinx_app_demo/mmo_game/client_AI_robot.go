@@ -4,14 +4,16 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"github.com/aceld/zinx/zinx_app_demo/mmo_game/pb"
-	"github.com/golang/protobuf/proto"
 	"io"
 	"math/rand"
 	"net"
 	"runtime"
 	"sync"
 	"time"
+
+	"github.com/golang/protobuf/proto"
+
+	"github.com/aceld/zinx/zinx_app_demo/mmo_game/pb"
 )
 
 type Message struct {
@@ -46,9 +48,9 @@ func (this *TcpClient) Unpack(headdata []byte) (head *Message, err error) {
 	}
 
 	// 封包太大
-	//if head.Len > MaxPacketSize {
+	// if head.Len > MaxPacketSize {
 	//	return nil, packageTooBig
-	//}
+	// }
 
 	return head, nil
 }
@@ -64,7 +66,7 @@ func (this *TcpClient) Pack(msgId uint32, dataBytes []byte) (out []byte, err err
 		return
 	}
 
-	//all pkg data
+	// all pkg data
 	if err = binary.Write(outbuff, binary.LittleEndian, dataBytes); err != nil {
 		return
 	}
@@ -94,9 +96,9 @@ func (this *TcpClient) SendMsg(msgID uint32, data proto.Message) {
 }
 
 func (this *TcpClient) AIRobotAction() {
-	//聊天或者移动
+	// 聊天或者移动
 
-	//随机获得动作
+	// 随机获得动作
 	tp := rand.Intn(2)
 	if tp == 0 {
 		content := fmt.Sprintf("hello 我是player %d, 你是谁?", this.Pid)
@@ -105,7 +107,7 @@ func (this *TcpClient) AIRobotAction() {
 		}
 		this.SendMsg(2, msg)
 	} else {
-		//移动
+		// 移动
 		x := this.X
 		z := this.Z
 
@@ -118,7 +120,7 @@ func (this *TcpClient) AIRobotAction() {
 			z += float32(rand.Intn(10))
 		}
 
-		//纠正坐标位置
+		// 纠正坐标位置
 		if x > 410 {
 			x = 410
 		} else if x < 85 {
@@ -131,7 +133,7 @@ func (this *TcpClient) AIRobotAction() {
 			z = 75
 		}
 
-		//移动方向角度
+		// 移动方向角度
 		randV := rand.Intn(2)
 		v := this.V
 		if randV == 0 {
@@ -139,7 +141,7 @@ func (this *TcpClient) AIRobotAction() {
 		} else {
 			v = 335
 		}
-		//封装Position消息
+		// 封装Position消息
 		msg := &pb.Position{
 			X: x,
 			Y: this.Y,
@@ -148,7 +150,7 @@ func (this *TcpClient) AIRobotAction() {
 		}
 
 		fmt.Println(fmt.Sprintf("player ID: %d. Walking...", this.Pid))
-		//发送移动MsgID:3的指令
+		// 发送移动MsgID:3的指令
 		this.SendMsg(3, msg)
 	}
 }
@@ -157,35 +159,35 @@ func (this *TcpClient) AIRobotAction() {
 	处理一个回执业务
 */
 func (this *TcpClient) DoMsg(msg *Message) {
-	//处理消息
-	//fmt.Println(fmt.Sprintf("msg id :%d, data len: %d", msg.MsgId, msg.Len))
+	// 处理消息
+	// fmt.Println(fmt.Sprintf("msg id :%d, data len: %d", msg.MsgId, msg.Len))
 	if msg.MsgId == 1 {
-		//服务器回执给客户端 分配ID
+		// 服务器回执给客户端 分配ID
 
-		//解析proto
+		// 解析proto
 		syncpid := &pb.SyncPid{}
 		_ = proto.Unmarshal(msg.Data, syncpid)
 
-		//给当前客户端ID进行赋值
+		// 给当前客户端ID进行赋值
 		this.Pid = syncpid.Pid
 	} else if msg.MsgId == 200 {
-		//服务器回执客户端广播数据
+		// 服务器回执客户端广播数据
 
-		//解析proto
+		// 解析proto
 		bdata := &pb.BroadCast{}
 		_ = proto.Unmarshal(msg.Data, bdata)
 
-		//初次玩家上线 广播位置消息
+		// 初次玩家上线 广播位置消息
 		if bdata.Tp == 2 && bdata.Pid == this.Pid {
-			//本人
-			//更新客户端坐标
+			// 本人
+			// 更新客户端坐标
 			this.X = bdata.GetP().X
 			this.Y = bdata.GetP().Y
 			this.Z = bdata.GetP().Z
 			this.V = bdata.GetP().V
 			fmt.Println(fmt.Sprintf("player ID: %d online.. at(%f,%f,%f,%f)", bdata.Pid, this.X, this.Y, this.Z, this.V))
 
-			//玩家已经成功上线
+			// 玩家已经成功上线
 			this.isOnline <- true
 
 		} else if bdata.Tp == 1 {
@@ -197,9 +199,9 @@ func (this *TcpClient) DoMsg(msg *Message) {
 func (this *TcpClient) Start() {
 	go func() {
 		for {
-			//读取服务端发来的数据 ==》 SyncPid
-			//1.读取8字节
-			//第一次读取，读取数据头
+			// 读取服务端发来的数据 ==》 SyncPid
+			// 1.读取8字节
+			// 第一次读取，读取数据头
 			headData := make([]byte, 8)
 
 			if _, err := io.ReadFull(this.conn, headData); err != nil {
@@ -210,7 +212,7 @@ func (this *TcpClient) Start() {
 			if err != nil {
 				return
 			}
-			//data
+			// data
 			if pkgHead.Len > 0 {
 				pkgHead.Data = make([]byte, pkgHead.Len)
 				if _, err := io.ReadFull(this.conn, pkgHead.Data); err != nil {
@@ -218,7 +220,7 @@ func (this *TcpClient) Start() {
 				}
 			}
 
-			//处理服务器回执业务
+			// 处理服务器回执业务
 			this.DoMsg(pkgHead)
 		}
 	}()

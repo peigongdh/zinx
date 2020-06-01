@@ -7,8 +7,9 @@ package ztimer
 
 import (
 	"fmt"
-	"github.com/aceld/zinx/zlog"
 	"reflect"
+
+	"github.com/aceld/zinx/zlog"
 )
 
 /*
@@ -17,8 +18,8 @@ import (
 	回调函数
 */
 type DelayFunc struct {
-	f    func(...interface{}) //f : 延迟函数调用原型
-	args []interface{}        //args: 延迟调用函数传递的形参
+	f    func(...interface{}) // f : 延迟函数调用原型
+	args []interface{}        // args: 延迟调用函数传递的形参
 }
 
 /*
@@ -31,7 +32,7 @@ func NewDelayFunc(f func(v ...interface{}), args []interface{}) *DelayFunc {
 	}
 }
 
-//打印当前延迟函数的信息，用于日志记录
+// 打印当前延迟函数的信息，用于日志记录
 func (df *DelayFunc) String() string {
 	return fmt.Sprintf("{DelayFun:%s, args:%v}", reflect.TypeOf(df.f).Name(), df.args)
 }
@@ -46,6 +47,6 @@ func (df *DelayFunc) Call() {
 		}
 	}()
 
-	//调用定时器超时函数
+	// 调用定时器超时函数
 	df.f(df.args...)
 }

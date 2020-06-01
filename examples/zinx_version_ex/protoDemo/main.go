@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/aceld/zinx/examples/zinx_version_ex/protoDemo/pb"
+
 	"github.com/golang/protobuf/proto"
+
+	"github.com/aceld/zinx/examples/zinx_version_ex/protoDemo/pb"
 )
 
 func main() {

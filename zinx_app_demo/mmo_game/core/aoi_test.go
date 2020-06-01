@@ -14,9 +14,9 @@ func TestAOIManagerSuroundGridsByGid(t *testing.T) {
 	aoiMgr := NewAOIManager(0, 250, 5, 0, 250, 5)
 
 	for k, _ := range aoiMgr.grids {
-		//得到当前格子周边的九宫格
+		// 得到当前格子周边的九宫格
 		grids := aoiMgr.GetSurroundGridsByGid(k)
-		//得到九宫格所有的IDs
+		// 得到九宫格所有的IDs
 		fmt.Println("gid : ", k, " grids len = ", len(grids))
 		gIDs := make([]int, 0, len(grids))
 		for _, grid := range grids {

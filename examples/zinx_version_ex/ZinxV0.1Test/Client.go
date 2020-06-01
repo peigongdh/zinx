@@ -12,7 +12,7 @@ import (
 func main() {
 
 	fmt.Println("Client Test ... start")
-	//3秒之后发起测试请求，给服务端开启服务的机会
+	// 3秒之后发起测试请求，给服务端开启服务的机会
 	time.Sleep(3 * time.Second)
 
 	conn, err := net.Dial("tcp", "127.0.0.1:7777")

@@ -4,15 +4,15 @@ import (
 	"github.com/aceld/zinx/znet"
 )
 
-//Server 模块的测试函数
+// Server 模块的测试函数
 func main() {
 
 	/*
 		服务端测试
 	*/
-	//1 创建一个server 句柄 s
+	// 1 创建一个server 句柄 s
 	s := znet.NewServer("[zinx V0.1]")
 
-	//2 开启服务
+	// 2 开启服务
 	s.Serve()
 }
