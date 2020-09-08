@@ -31,7 +31,7 @@ func (connMgr *ConnManager) Add(conn ziface.IConnection) {
 	connMgr.connLock.Lock()
 	defer connMgr.connLock.Unlock()
 
-	// 将conn连接添加到ConnMananger中
+	// 将conn连接添加到ConnManager中
 	connMgr.connections[conn.GetConnID()] = conn
 
 	fmt.Println("connection add to ConnManager successfully: conn num = ", connMgr.Len())
