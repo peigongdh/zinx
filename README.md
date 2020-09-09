@@ -9,6 +9,7 @@ Zinx 是一个基于Golang的轻量级并发服务器框架
 -   刘丹冰([@aceld](https://github.com/aceld))
 -   张超([@zhngcho](https://github.com/zhngcho))
 -   高智辉Roger([@adsian](https://github.com/adsian))
+-   胡贵建([@huguijian](https://github.com/huguijian))
 
 
 ---
@@ -21,6 +22,11 @@ Zinx 是一个基于Golang的轻量级并发服务器框架
 [zinx(Lua版本)](https://github.com/huqitt/zinx-lua)
 #### 开发者
 -  胡琪([@huqitt](https://github.com/huqitt))
+
+---
+[zinx(websocket版本)](https://github.com/aceld/zinx/tree/wsserver)
+#### 开发者
+-  胡贵建([@huguijian](https://github.com/huguijian))
 
 ---
 ## zinx源码地址
@@ -42,13 +48,15 @@ Git: https://gitee.com/Aceld/zinx
 
 [![zinx-youtube](https://s2.ax1x.com/2019/10/14/KSurCR.jpg)](https://www.youtube.com/watch?v=U95iF-HMWsU&list=PL_GrAPKmuajzeNI8HBTi-k5NQO1g0rM-A)
 
+> 注意：修正Github打不开图片方法 windows: https://zhuanlan.zhihu.com/p/107196957 , mac/Linux: 修改/etc/hosts文件即可 
+
 ## Zinx详细教程及文档
 
 ### PC端文档
 [《Zinx框架教程-基于Golang的轻量级并发服务器》](https://www.jianshu.com/p/23d07c0a28e5)
 
 ### 移动端文档
-![gongzhonghao](https://ww1.yunjiexi.club/2019/12/10/5WjHX.jpg)
+![gongzhonghao](https://s1.ax1x.com/2020/07/07/UFyUdx.th.jpg)
 
     
 ## 一、写在前面
@@ -315,15 +323,13 @@ func (c *Connection) RemoveProperty(key string)
 ### Zinx技术讨论社区
 
 ### **微信公众号**
-![gongzhonghao](https://ww1.yunjiexi.club/2019/12/10/5WjHX.jpg)
+![gongzhonghao](https://s1.ax1x.com/2020/07/07/UFyUdx.th.jpg)
 
 
 ### **QQ资源分享**
 
-![qqqun](https://ww1.yunjiexi.club/2019/12/10/5WGTC.png)
+![qqqun](https://s1.ax1x.com/2020/07/07/UF6Y9S.th.png)
 
 ### **微信群**
-
-![weixin](https://ww1.yunjiexi.club/2019/12/10/5WmP4.png)
-
+<img src="https://s1.ax1x.com/2020/07/07/UF6rNV.png" width = "200" height = "230" alt="weixin" />
 欢迎大家加入，获取更多相关学习资料
